@@ -1,0 +1,28 @@
+---
+// Inline podcast clip: self-hosted mp4 with poster, plays on tap, one at a time.
+interface Props { src: string; poster: string; title: string; who: string; length: string; dark?: boolean }
+const { src, poster, title, who, length, dark = false } = Astro.props;
+---
+<figure class:list={['clip', { dark }]}>
+  <div class="frame">
+    <video preload="none" poster={poster} playsinline controls>
+      <source src={src} type="video/mp4" />
+    </video>
+    <span class="len">{length}</span>
+  </div>
+  <figcaption><strong>{title}</strong><span>{who}</span></figcaption>
+</figure>
+<script>
+  const vids = Array.from(document.querySelectorAll<HTMLVideoElement>('.clip video'));
+  vids.forEach((v) => v.addEventListener('play', () => vids.forEach((o) => { if (o !== v) o.pause(); })));
+</script>
+<style>
+  .clip { margin: 0; }
+  .frame { position: relative; border-radius: var(--radius-lg); overflow: hidden; background: #000; box-shadow: var(--shadow); aspect-ratio: 16 / 9; }
+  video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .len { position: absolute; top: 12px; right: 12px; background: rgba(0,0,0,.6); color: #fff; font-size: .78rem; font-weight: 700; padding: 4px 9px; border-radius: 999px; pointer-events: none; }
+  figcaption { margin-top: 12px; display: flex; flex-direction: column; gap: 2px; }
+  figcaption strong { font-size: 1rem; }
+  figcaption span { color: var(--muted); font-size: .9rem; }
+  .dark figcaption span { color: #b8bfca; }
+</style>

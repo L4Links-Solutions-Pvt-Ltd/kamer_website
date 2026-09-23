@@ -1,0 +1,172 @@
+---
+import Base from '../layouts/Base.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+import Reel from '../components/Reel.astro';
+
+type ReelDef = { file: string; title: string; who: string; length: string };
+type Group = { title: string; intro: string; items: [string, string][]; reels?: ReelDef[] };
+
+const groups: Group[] = [
+  {
+    title: 'Beds and rooms',
+    intro: 'Your building, floor by floor, exactly as it is.',
+    items: [
+      ['Live bed map', 'Every bed colour coded: available, occupied, booked, notice period, daily booking. Filter by floor, bed type and sharing.'],
+      ['Floor, room, sharing, rent', 'Set up single, double, triple sharing and more. AC and non-AC rent tables per room type.'],
+      ['Change bed', 'Move a guest from B3 to room 4 in one tap. Pro-rated rent is calculated for you. A feature most competing apps still do not have.'],
+      ['Multiple buildings', 'Add as many buildings as you own. Switch between them from the top of the screen.'],
+    ],
+    reels: [{ file: 'multi-property', title: 'Running more than one building', who: 'Srinivas, from the podcast', length: '1:33' }],
+  },
+  {
+    title: 'Bookings',
+    intro: 'Built for how hostels actually fill up.',
+    items: [
+      ['Daily bookings', 'A sister visiting for two days. A friend for a weekend. Tracked, charged, and cleared, so short stays never become free stays.'],
+      ['Advance booking', 'Hold a bed for next month against a token amount. The bed shows as booked, not empty, so nobody double-allots it.'],
+      ['Common booking', 'You know ten interns are joining in June but not which rooms. Book them without a bed, assign later.'],
+      ['Guest transfer', 'Move a guest from one of your buildings to another without deleting and re-entering their history.'],
+    ],
+    reels: [
+      { file: 'bed-hold', title: 'Holding a bed for next month', who: 'Srinivas, from the podcast', length: '1:05' },
+      { file: 'blank-bed-holding', title: 'Booking a guest before you know the bed', who: 'Srinivas, from the podcast', length: '1:20' },
+    ],
+  },
+  {
+    title: 'Money',
+    intro: 'Every rupee recorded against a name.',
+    items: [
+      ['Advance tracking', 'The advance paid at joining is on record for as long as the guest stays. No more "was it 5,000 or 3,000?"'],
+      ['Rent invoices and reminders', 'Automatic invoices on the due date. Reminders go to the guest, not from your phone.'],
+      ['Partial, paid, unpaid', 'The home screen shows who has paid in full, who has paid part, and who has paid nothing.'],
+      ['Vacate and settlement', 'Deduct dues, return the balance advance, close the guest. Done in one flow.'],
+      ['Expenses', 'Record hostel expenses alongside collections so the month-end number is the real number.'],
+    ],
+  },
+  {
+    title: 'Guests and KYC',
+    intro: 'Every guest on record. Every time.',
+    items: [
+      ['Digital joining form', 'Name, phone, ID, photo, joining date, bed. Captured on the phone at the door.'],
+      ['Aadhaar via DigiLocker', 'Verified Aadhaar KYC through the official DigiLocker flow. Stored legally, with every protocol followed.'],
+      ['Verified vs pending', 'See at a glance who still owes you an ID. Ready before the monthly police verification.'],
+      ['Guest self-KYC', 'Guests complete their own KYC from the guest app using your hostel code. It lands in your owner app.'],
+    ],
+  },
+  {
+    title: 'Owners and managers',
+    intro: 'One app. The right access for each person.',
+    items: [
+      ['Partners with equal rights', 'Two owners, or a hundred. Every partner sees every report and every rupee.'],
+      ['Layered manager permissions', 'One manager can only collect rent. Another can add guests. Unlock exactly what each person needs.'],
+      ['Nothing leaks', 'A manager can only see and do what you have unlocked. Data cannot be exported by anyone you have not allowed.'],
+    ],
+    reels: [{ file: 'permissions', title: 'Who gets which buttons', who: 'Srinivas, from the podcast', length: '1:09' }],
+  },
+  {
+    title: 'Reports and analytics',
+    intro: 'No spreadsheets. No month-end maths.',
+    items: [
+      ['Occupancy', 'Filled versus empty beds, today and over time. Know your busiest months and your slow beds.'],
+      ['Collections', 'By day, by month, by payment mode.'],
+      ['Dues and ageing', 'Who is overdue and by how long.'],
+      ['Joinings and vacates', 'Churn, month on month.'],
+      ['Revenue by building', 'Compare properties side by side.'],
+      ['Export', 'Every report exports to PDF or Excel. A daily summary lands in the app.'],
+    ],
+  },
+  {
+    title: 'Kamer Stay, the guest app',
+    intro: 'Fewer calls, fewer disputes. Free for your guests on iOS and Android.',
+    items: [
+      ['Bills and receipts', 'Guests see their rent history and download receipts, including for IT returns.'],
+      ['Pay rent', 'Pay from the app. It reflects in your owner app instantly.'],
+      ['Complaints', 'Guests raise complaints in the app. You see and close them from yours.'],
+    ],
+    reels: [{ file: 'owner-guest-app', title: 'Owner app and guest app, together', who: 'Srinivas, from the podcast', length: '1:07' }],
+  },
+  {
+    title: 'Leads and your free web page',
+    intro: 'Fill the beds you have.',
+    items: [
+      ['Lead management', 'Walk-ins, calls and website enquiries tracked in one place. Follow up before they go elsewhere.'],
+      ['Free hostel page', 'A ready-made page with photos, pricing, amenities and map. Share on WhatsApp, Instagram, JustDial and Google.'],
+      ['Enquiry button', 'New leads land straight in your app.'],
+    ],
+    reels: [{ file: 'lead-management', title: 'Where your enquiries go', who: 'Srinivas, from the podcast', length: '2:05' }],
+  },
+];
+---
+<Base title="Features" description="Live bed map, advance and rent tracking, Aadhaar KYC via DigiLocker, daily and advance bookings, manager permissions, reports, and a guest app. Everything in the Kamer hostel management app, with Srinivas explaining the big ones.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Features</span>
+      <h1>Everything a register book cannot do</h1>
+      <p class="lead">Kamer was built on the floor of working hostels, feature by feature, from what owners actually asked for. Where it helps, Srinivas explains the feature himself.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="wrap shots">
+      <img src="/images/dashboard.png" alt="Kamer dashboard: bed status and payment status" width="449" height="902" loading="lazy" />
+      <img src="/images/beds.png" alt="Kamer bed map by floor" width="449" height="902" loading="lazy" />
+      <img src="/images/guest-details.png" alt="Kamer guest details screen" width="449" height="900" loading="lazy" />
+      <img src="/images/bed-details.png" alt="Kamer bed details screen" width="449" height="901" loading="lazy" />
+    </div>
+  </section>
+
+  {groups.map((g, i) => (
+    <section class:list={['section', { alt: i % 2 === 1 }]}>
+      <div class="wrap">
+        <div class="group-head">
+          <h2>{g.title}</h2>
+          <p class="lead">{g.intro}</p>
+        </div>
+        {g.reels ? (
+          <div class="with-reels">
+            <div class="grid cols-2">
+              {g.items.map(([t, d]) => (
+                <div class="card"><h3>{t}</h3><p>{d}</p></div>
+              ))}
+            </div>
+            <div class:list={['reels', { two: g.reels.length > 1 }]}>
+              {g.reels.map((r) => (
+                <Reel src={`/video/reels/${r.file}.mp4`} poster={`/video/reels/${r.file}-poster.jpg`} title={r.title} who={r.who} length={r.length} />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div class="grid cols-3">
+            {g.items.map(([t, d]) => (
+              <div class="card"><h3>{t}</h3><p>{d}</p></div>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  ))}
+
+  <section class="section dark center">
+    <div class="wrap narrow center">
+      <h2>Support that answers</h2>
+      <p class="lead" style="color:#d7dce4">WhatsApp and phone support during working hours. After hours, leave a message and we call you back the next day. Free on-site setup and data migration if you want it.</p>
+      <StoreButtons align="center" />
+    </div>
+  </section>
+</Base>
+<style>
+  .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .shots img { filter: drop-shadow(0 16px 28px rgba(31,36,48,.14)); }
+  @media (max-width: 700px) { .shots { grid-template-columns: repeat(2, 1fr); } }
+  .group-head { max-width: 640px; margin-bottom: 28px; }
+  .with-reels { display: grid; grid-template-columns: 1fr auto; gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .reels { display: flex; gap: 20px; align-items: flex-start; }
+  .reels :global(.reel) { width: 260px; }
+  .reels.two :global(.reel) { width: 240px; }
+  @media (max-width: 1000px) { .reels.two { flex-direction: column; } }
+  @media (max-width: 860px) {
+    .with-reels { grid-template-columns: 1fr; }
+    .reels, .reels.two { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+    .reels :global(.reel), .reels.two :global(.reel) { width: min(280px, 100%); }
+  }
+</style>

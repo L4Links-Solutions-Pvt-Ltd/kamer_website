@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Your data" description="Where your guests' data lives, who can see it, and what happens when a phone is lost. Kamer's security, explained by the engineer who built it, in plain words.">
+  <section class="page-hero">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Your data</span>
+        <h1>Your guests' data is locked. Even from us.</h1>
+        <p class="lead">Owners call and ask, "Sir, what's my occupancy?" We have to say we don't know. Guest data in Kamer is encrypted with a key only the owner holds. Siva built it that way on purpose, and this page is him explaining why.</p>
+      </div>
+      <div class="note">
+        <div class="note-head">What a register book protects</div>
+        <div class="note-line"><span>Anyone at the desk can read it</span><span class="hand red">yes</span></div>
+        <div class="note-line"><span>Anyone with a phone can photograph it</span><span class="hand red">yes</span></div>
+        <div class="note-line"><span>It leaves with whoever takes it</span><span class="hand red">yes</span></div>
+        <div class="note-line"><span>Backup if it's lost</span><span class="hand red">none</span></div>
+        <div class="note-foot">The comparison isn't Kamer versus a bank vault. It's Kamer versus this.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The questions owners ask, answered by Siva</span>
+      <h2>Six questions, six straight answers</h2>
+      <div class="qa">
+        <div class="q">
+          <h3>"Where is my data? On the phone?"</h3>
+          <p>"No. Nothing lives on the phone. Everything is on AWS and Google Cloud, in the back end. The phone is a window. Lose the phone, buy a new phone, log in with your OTP, and everything is there. There is nothing on the device to steal."</p>
+        </div>
+        <div class="q">
+          <h3>"Can you see my guests?"</h3>
+          <p>"No, and this is the part people don't believe. We use standard encryption. Your customer data is encrypted and only you can decrypt it. We know how many customers we have. We don't know who your guests are, where they're from, or what you collected last month. When an owner asks me his occupancy, I genuinely can't tell him."</p>
+        </div>
+        <div class="q">
+          <h3>"What about Aadhaar? Is that legal to store?"</h3>
+          <p>"KYC goes through DigiLocker, the government's own procedure. Once the DigiLocker flow completes, we are legally allowed to store the standard Aadhaar record. Every protocol is followed. We don't take a photo of a card and keep it in a folder."</p>
+        </div>
+        <div class="q">
+          <h3>"My manager has my phone half the day. Then what?"</h3>
+          <p>"Two things. First, the app has its own lock, face or pattern, on top of the phone lock. Someone can have your phone in their hand at the bus stand and still not open Kamer. Second, your manager doesn't use your login. He has his own, with only the buttons you unlocked."</p>
+        </div>
+        <div class="q">
+          <h3>"Can a manager download my guest list and walk out?"</h3>
+          <p>"Not unless you gave him that permission. Manager A can collect rent. Manager B can add guests. Neither can export anything you haven't unlocked. Compared to a register, where whoever holds the book holds everything, this is the whole point."</p>
+        </div>
+        <div class="q">
+          <h3>"What if Kamer shuts down tomorrow?"</h3>
+          <p>"Your data is yours. Every report exports to PDF or Excel today, any day, without asking us. There is no lock-in. We'd rather earn the renewal."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Who sees what</span>
+        <h2>Owner, partner, manager, guest</h2>
+        <p class="lead">Same app. Different keys. Nothing leaks sideways.</p>
+        <p>Every partner is an owner: full reports, every rupee, every building. Every manager is a set of permissions you chose: this one collects rent, that one adds guests, neither sees the other's buttons. Every guest sees only their own bed, bills and KYC in Kamer Stay.</p>
+        <p class="muted">The full legal version is in our <a href="/privacy-policy" style="color:var(--orange-dark); font-weight:700">privacy policy</a>. This page is the plain one.</p>
+      </div>
+      <div class="access">
+        <div class="row head"><span></span><span>Owner / partner</span><span>Manager</span><span>Guest</span></div>
+        <div class="row"><span>All buildings, all reports</span><span class="y">Yes</span><span class="n">Only if unlocked</span><span class="n">No</span></div>
+        <div class="row"><span>Collect rent, add guests</span><span class="y">Yes</span><span class="n">Only if unlocked</span><span class="n">No</span></div>
+        <div class="row"><span>Export guest data</span><span class="y">Yes</span><span class="n">Only if unlocked</span><span class="n">No</span></div>
+        <div class="row"><span>Own bills, KYC, complaints</span><span class="y">Yes</span><span class="y">Yes</span><span class="y">Own only</span></div>
+        <div class="row"><span>Read your data at Kamer</span><span class="n">Encrypted</span><span class="n">Encrypted</span><span class="n">Encrypted</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Lost phone, 11 pm</span>
+        <h2>What actually happens</h2>
+        <ol class="steps">
+          <li><strong>Phone gone.</strong> Whoever has it sees a locked phone. If they get past that, they see a locked app. Face or pattern, yours.</li>
+          <li><strong>You buy a new phone.</strong> Install Kamer. Enter your number. OTP arrives.</li>
+          <li><strong>Everything is back.</strong> Every building, every bed, every advance, exactly as you left it. Nothing was on the old phone to lose.</li>
+          <li><strong>Old device.</strong> Its session is gone the moment you log in elsewhere.</li>
+        </ol>
+      </div>
+      <div class="math-card">
+        <div class="math-title">The short version</div>
+        <div class="math-row"><span>Stored</span><strong>AWS and Google Cloud, not the phone</strong></div>
+        <div class="math-row"><span>Read by Kamer staff</span><strong>Cannot. Encrypted.</strong></div>
+        <div class="math-row"><span>Aadhaar</span><strong>DigiLocker only</strong></div>
+        <div class="math-row"><span>Login</span><strong>OTP, plus app lock</strong></div>
+        <div class="math-row"><span>Managers</span><strong>See what you unlock</strong></div>
+        <div class="math-row"><span>Records kept</span><strong>As Indian law requires</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section center">
+    <div class="wrap narrow center">
+      <h2>Still have a question about your data?</h2>
+      <p class="lead">Ask the person who built it. WhatsApp <a href="https://wa.me/919100091343" style="color:var(--orange-dark); font-weight:700">+91 91000 91343</a>.</p>
+    </div>
+  </section>
+</Base>
+<style>
+  .page-hero h1 { max-width: 18ch; }
+  .note { background: #fffdf5; border: 1px solid #e6dcc3; border-radius: 6px; padding: 22px 26px; box-shadow: var(--shadow); position: relative;
+    background-image: repeating-linear-gradient(transparent, transparent 41px, #e9e0cb 41px, #e9e0cb 42px); background-position: 0 56px; }
+  .note::before { content: ""; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: #f0b3b3; }
+  .note-head { font-family: var(--hand); font-size: 1.35rem; color: #8a6d3b; margin-bottom: 8px; padding-left: 28px; }
+  .note-line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; height: 42px; padding-left: 28px; color: var(--ink-2); font-size: .95rem; }
+  .hand { font-family: var(--hand); font-size: 1.5rem; font-weight: 700; color: #1e3a8a; white-space: nowrap; }
+  .hand.red { color: #c0392b; }
+  .note-foot { margin-top: 14px; padding-left: 28px; font-size: .85rem; color: var(--muted); }
+
+  .qa { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  .q { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 26px 28px; box-shadow: var(--shadow); }
+  .q h3 { font-size: 1.15rem; color: var(--orange-dark); }
+  .q p { margin: 0; color: var(--ink-2); }
+
+  .access { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); font-size: .92rem; }
+  .row { display: grid; grid-template-columns: 1.5fr 1fr 1fr .8fr; gap: 8px; padding: 12px 18px; border-top: 1px solid var(--line); align-items: center; }
+  .row.head { border-top: 0; background: var(--surface-2); font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .row span:not(:first-child) { text-align: center; }
+  .y { color: var(--green); font-weight: 700; }
+  .n { color: var(--muted); }
+
+  .steps { padding-left: 1.2em; display: grid; gap: 12px; color: #d7dce4; }
+  .steps strong { color: #fff; }
+  .math-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-lg); padding: 28px; }
+  .math-title { font-weight: 800; font-size: 1.15rem; margin-bottom: 12px; }
+  .math-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.12); color: #d7dce4; }
+  .math-row strong { color: #ffb387; text-align: right; }
+  @media (max-width: 800px) { .qa { grid-template-columns: 1fr; } .row { font-size: .82rem; padding: 10px 12px; } }
+</style>

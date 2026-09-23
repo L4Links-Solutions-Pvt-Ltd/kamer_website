@@ -1,0 +1,21 @@
+---
+interface Props { align?: 'left' | 'center'; light?: boolean }
+const { align = 'left', light = false } = Astro.props;
+export const APP_STORE = 'https://apps.apple.com/in/app/kamer-owner/id6708242012';
+export const PLAY_STORE = 'https://play.google.com/store/apps/details?id=com.kamerapp.property';
+---
+<div class:list={['stores', align, { light }]}>
+  <a href={APP_STORE} target="_blank" rel="noopener" aria-label="Download Kamer Owner on the App Store">
+    <img src="/images/app-store.png" alt="Download on the App Store" width="167" height="50" loading="lazy" />
+  </a>
+  <a href={PLAY_STORE} target="_blank" rel="noopener" aria-label="Get Kamer Owner on Google Play">
+    <img src="/images/play-store.png" alt="Get it on Google Play" width="168" height="50" loading="lazy" />
+  </a>
+</div>
+<style>
+  .stores { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .stores.center { justify-content: center; }
+  .stores a { display: block; border-radius: 8px; transition: transform .12s ease; }
+  .stores a:hover { transform: translateY(-1px); }
+  .stores img { height: 50px; width: auto; }
+</style>

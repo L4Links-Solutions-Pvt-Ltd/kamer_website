@@ -1,0 +1,68 @@
+---
+import type { Video } from '../data/videos';
+interface Props { video: Video }
+const { video } = Astro.props;
+
+function youtubeId(src: string) {
+  const m = src.match(/(?:v=|youtu\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : src.trim();
+}
+const id = video.type === 'youtube' ? youtubeId(video.src) : '';
+const igUrl = video.type === 'instagram' ? video.src.replace(/\/?$/, '/') : '';
+---
+{video.type === 'youtube' && (
+  <figure class="video yt">
+    <button class="yt-lite" data-id={id} aria-label={`Play video: ${video.title}`}>
+      <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" />
+      <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+    </button>
+    <figcaption><strong>{video.title}</strong>{video.caption && <span class="muted"> · {video.caption}</span>}</figcaption>
+  </figure>
+)}
+{video.type === 'file' && (
+  <figure class="video file">
+    <video controls preload="none" poster={video.poster} playsinline>
+      <source src={video.src} type="video/mp4" />
+    </video>
+    <figcaption><strong>{video.title}</strong>{video.caption && <span class="muted"> · {video.caption}</span>}</figcaption>
+  </figure>
+)}
+{video.type === 'instagram' && (
+  <figure class="video ig">
+    <blockquote class="instagram-media" data-instgrm-permalink={igUrl} data-instgrm-version="14">
+      <a href={igUrl} target="_blank" rel="noopener">{video.title}</a>
+    </blockquote>
+    <figcaption><strong>{video.title}</strong>{video.caption && <span class="muted"> · {video.caption}</span>}</figcaption>
+  </figure>
+)}
+<script>
+  // YouTube: swap the poster for the real iframe only when clicked (keeps the page fast).
+  document.querySelectorAll<HTMLButtonElement>('.yt-lite').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = btn.getAttribute('aria-label') || 'Video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      btn.replaceWith(iframe);
+    }, { once: true });
+  });
+  // Instagram: load the official embed script once if any Instagram embeds exist.
+  if (document.querySelector('.instagram-media') && !document.querySelector('script[src*="instagram.com/embed.js"]')) {
+    const s = document.createElement('script');
+    s.src = 'https://www.instagram.com/embed.js';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+</script>
+<style>
+  .video { margin: 0; }
+  .yt-lite, .video video, .video :global(iframe) { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius); overflow: hidden; background: #000; position: relative; padding: 0; cursor: pointer; }
+  .yt-lite img { width: 100%; height: 100%; object-fit: cover; opacity: .85; }
+  .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .play svg { width: 72px; height: 72px; color: #fff; background: var(--orange); border-radius: 50%; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: transform .12s; }
+  .yt-lite:hover .play svg { transform: scale(1.06); }
+  .ig .instagram-media { margin: 0 auto !important; max-width: 540px; min-width: 0 !important; }
+  figcaption { margin-top: 12px; font-size: .95rem; }
+</style>

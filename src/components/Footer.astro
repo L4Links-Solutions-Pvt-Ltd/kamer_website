@@ -1,0 +1,57 @@
+---
+import StoreButtons from './StoreButtons.astro';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="top">
+      <div class="col brand-col">
+        <a href="/" class="brand"><img src="/images/logo.png" alt="" width="36" height="36" /><span>Kamer</span></a>
+        <p class="muted">Hostel and PG management app built by a PG owner and an enterprise systems engineer. Hyderabad, India.</p>
+        <StoreButtons />
+      </div>
+      <div class="col">
+        <h4>Product</h4>
+        <a href="/features">Features</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/security">Your data</a>
+        <a href="/stories">Customer stories</a>
+      </div>
+      <div class="col">
+        <h4>Company</h4>
+        <a href="/about">About the founders</a>
+        <a href="/contact">Contact</a>
+        <a href="/contact#demo">Request a demo</a>
+      </div>
+      <div class="col">
+        <h4>Talk to us</h4>
+        <a href="tel:+919100091343">+91 91000 91343</a>
+        <a href="https://wa.me/919100091343" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:info@kamerapp.com">info@kamerapp.com</a>
+        <span class="muted">T-Hub, Hyderabad, Telangana</span>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© {year} L4Links Solutions Private Limited. All rights reserved.</span>
+      <nav aria-label="Legal">
+        <a href="/privacy-policy">Privacy policy</a>
+        <a href="/terms-conditions">Terms and conditions</a>
+        <a href="/refund-cancellation-policy">Refund and cancellation</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+<style>
+  .site-footer { background: var(--surface-2); border-top: 1px solid var(--line); padding: 56px 0 28px; font-size: 0.95rem; }
+  .top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 32px; }
+  .col { display: flex; flex-direction: column; gap: 10px; }
+  .col h4 { margin: 0 0 4px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .col a:hover { color: var(--orange-dark); }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; }
+  .brand img { border-radius: 9px; }
+  .brand-col p { max-width: 36ch; }
+  .bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
+  .bottom nav { display: flex; gap: 18px; flex-wrap: wrap; }
+  @media (max-width: 860px) { .top { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .top { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+---
+<Base title="Pricing" description="Kamer is Rs 9,999 a year for up to 150 beds. Unlimited buildings, partners and managers, both apps, free setup. Here is the maths in a hostel owner's language.">
+  <section class="page-hero">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Pricing</span>
+        <h1>One bed. That's what it costs you if you don't.</h1>
+        <p class="lead">Rs 9,999 a year for up to 150 beds. Srinivas puts it simpler than we can: "One bed missing from the register for a month, that's the subscription. Two beds, it's paid for twice."</p>
+      </div>
+      <div class="note">
+        <div class="note-line"><span>One bed, one month, empty</span><span class="hand">Rs 7,000</span></div>
+        <div class="note-line"><span>Kamer, whole year</span><span class="hand">Rs 9,999</span></div>
+        <div class="note-line total"><span>Beds you need to find</span><span class="hand red">less than 2</span></div>
+        <div class="note-foot">Rs 7,000 is an example rent. Put your own number in. The answer doesn't change much.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="wrap plans">
+      <div class="plan main">
+        <span class="badge">Standard</span>
+        <div class="price"><span class="cur">Rs</span>9,999<span class="per">/ year</span></div>
+        <p class="muted">Up to 150 beds. Nine out of ten hostels in Hyderabad fit under that.</p>
+        <ul class="check-list">
+          <li>Every building you own, under one plan</li>
+          <li>Every partner, with equal rights and every report</li>
+          <li>Every manager, with only the buttons you unlock</li>
+          <li>Kamer Owner and Kamer Stay, iOS and Android</li>
+          <li>Bed map, daily and advance bookings, change bed with pro-rated rent</li>
+          <li>Advances, rent, invoices, reminders, vacate settlement</li>
+          <li>Aadhaar KYC through DigiLocker</li>
+          <li>Reports, exported to PDF or Excel whenever you like</li>
+          <li>A free web page for your hostel with an enquiry button</li>
+          <li>WhatsApp and phone support from people who run hostels</li>
+          <li>Free on-site setup and register migration, if you want it</li>
+        </ul>
+        <StoreButtons />
+      </div>
+      <div class="plan">
+        <span class="badge">Above 150 beds</span>
+        <div class="price">Custom</div>
+        <p class="muted">Chains and groups with several partners. Everything in Standard. Priced for your volume, not per bed.</p>
+        <a href="/contact#demo" class="btn primary">Talk to us</a>
+        <p class="muted" style="margin-top:14px; font-size:.9rem;">Or WhatsApp <a href="https://wa.me/919100091343" style="font-weight:700; color:var(--orange-dark)">+91 91000 91343</a></p>
+        <h3 style="margin-top:28px; font-size:1rem;">What you don't pay for</h3>
+        <ul class="no-list">
+          <li>No per-building fee</li>
+          <li>No per-manager or per-partner fee</li>
+          <li>No setup or migration fee</li>
+          <li>No charge for the guest app</li>
+          <li>No lock-in. Your data exports any time.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">The maths, in Siva's words</span>
+        <h2>"Seventy to eighty percent is break-even. The rest is yours."</h2>
+        <p class="lead">"No matter how hard you work, a hostel breaks even somewhere around 70 to 80 percent occupancy. We've watched it across thousands of beds. Everything above that line is profit. Not revenue. Profit."</p>
+        <p>"So the question isn't what the app costs. It's how many beds above the line you have that you can't see. Four extra beds filled and the subscription is gone. Ten extra beds and it's a different business."</p>
+      </div>
+      <div class="card">
+        <h3>Why owners came from the competition</h3>
+        <p>A few owners moved to Kamer from an app that cost about double. "We assumed it was the price. It wasn't. They stayed because their managers could use it without a training call." We kept the price where it is anyway.</p>
+        <p class="muted" style="margin:0; font-size:.9rem;">Siva, co-founder</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <h2>Questions owners actually ask</h2>
+      <div class="faq">
+        <details><summary>I have three buildings. Three subscriptions?</summary><p>One. Add all three under one plan, as long as the beds add up to 150 or less. Srinivas runs five buildings on one login.</p></details>
+        <details><summary>My brother is a partner. Does he need to pay separately?</summary><p>No. Every partner gets a login with equal rights and every report, under the same plan. Two partners or twenty.</p></details>
+        <details><summary>What happens when I cross 150 beds?</summary><p>You WhatsApp us, we move you to a custom plan for your volume. Nothing stops working while that happens.</p></details>
+        <details><summary>Is there a trial?</summary><p>Download it and set up your hostel. Trial terms are shown in the app when you subscribe.</p></details>
+        <details><summary>Can I pay by UPI?</summary><p>Yes. Payment is inside the app through Razorpay. UPI, card or net banking.</p></details>
+        <details><summary>What if I stop?</summary><p>Cancel any time from the app or by writing to us. Renewals stop. Your data is yours and exports to Excel. The <a href="/refund-cancellation-policy" style="color:var(--orange-dark); font-weight:700">refund policy</a> has the details.</p></details>
+        <details><summary>Do you charge to move my registers into the app?</summary><p>No. If you want it, we come to the building and do it. Most owners do it themselves in an afternoon, but the offer stands.</p></details>
+        <details><summary>Does my guest pay anything for Kamer Stay?</summary><p>No. The guest app is free for guests. They see bills, pay rent, do KYC, raise complaints.</p></details>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .page-hero h1 { max-width: 16ch; }
+  .note { background: #fffdf5; border: 1px solid #e6dcc3; border-radius: 6px; padding: 22px 26px; box-shadow: var(--shadow); position: relative;
+    background-image: repeating-linear-gradient(transparent, transparent 41px, #e9e0cb 41px, #e9e0cb 42px); background-position: 0 14px; }
+  .note::before { content: ""; position: absolute; left: 40px; top: 0; bottom: 0; width: 1px; background: #f0b3b3; }
+  .note-line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; height: 42px; padding-left: 28px; color: var(--ink-2); }
+  .note-line.total { color: var(--ink); font-weight: 700; }
+  .hand { font-family: var(--hand); font-size: 1.6rem; font-weight: 700; color: #1e3a8a; white-space: nowrap; }
+  .hand.red { color: #c0392b; }
+  .note-foot { margin-top: 14px; padding-left: 28px; font-size: .85rem; color: var(--muted); }
+  .plans { display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start; }
+  .plan { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 36px; box-shadow: var(--shadow); }
+  .plan.main { border-color: var(--orange); border-width: 2px; }
+  .price { font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.03em; margin: 14px 0 6px; line-height: 1; }
+  .price .cur { font-size: .45em; vertical-align: top; margin-right: 6px; font-weight: 700; color: var(--muted); }
+  .price .per { font-size: .35em; color: var(--muted); font-weight: 600; margin-left: 8px; letter-spacing: 0; }
+  .no-list { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 8px; font-size: .95rem; color: var(--ink-2); }
+  .no-list li { padding-left: 22px; position: relative; }
+  .no-list li::before { content: "×"; position: absolute; left: 2px; top: -1px; color: var(--orange-dark); font-weight: 800; font-size: 1.1rem; }
+  @media (max-width: 800px) { .plans { grid-template-columns: 1fr; } }
+</style>

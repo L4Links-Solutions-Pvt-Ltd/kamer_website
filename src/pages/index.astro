@@ -1,0 +1,359 @@
+---
+import Base from '../layouts/Base.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import Clip from '../components/Clip.astro';
+import { videos } from '../data/videos';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Kamer',
+    legalName: 'L4Links Solutions Private Limited',
+    url: 'https://kamerapp.com',
+    logo: 'https://kamerapp.com/images/logo.png',
+    email: 'info@kamerapp.com',
+    telephone: '+91-91000-91343',
+    founder: [
+      { '@type': 'Person', name: 'Srinivas Reddy Gangasani' },
+      { '@type': 'Person', name: 'Siva Nalavenkata' },
+      { '@type': 'Person', name: 'Sunil Prasanth Boddu' },
+    ],
+    address: { '@type': 'PostalAddress', addressLocality: 'Hyderabad', addressRegion: 'Telangana', addressCountry: 'IN' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Kamer Owner',
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'iOS, Android',
+    offers: { '@type': 'Offer', price: '9999', priceCurrency: 'INR', description: 'Per year, up to 150 beds' },
+    url: 'https://kamerapp.com',
+  },
+];
+---
+<Base
+  title="Kamer | Hostel and PG management app built by a Hyderabad PG owner"
+  description="Fifteen years of register books, lost advances and beds that were 'full'. Kamer is what a Hyderabad PG owner and an enterprise engineer built to fix it. Their story, in their words."
+  ogImage="/images/founders/founders-hero.jpg"
+  jsonLd={jsonLd}
+>
+  <!-- HERO: photo with name tags, headline below, no app -->
+  <section class="hero">
+    <div class="wrap">
+      <h1 class="ask" lang="te"><span class="l1">మీరు Hostels నడుపుతున్నారా,</span><span class="l2">Hostels మిమ్మల్ని నడుపుతున్నాయా?</span></h1>
+      <figure class="hero-photo">
+        <img src="/images/founders/founders-hero.jpg" alt="Srinivas Reddy mid-sentence, hands up, with Siva Nalavenkata listening, on a sofa at T-Hub Hyderabad" width="1920" height="1080" fetchpriority="high" />
+        <div class="tags">
+          <div class="tag">
+            <strong>Srinivas Reddy</strong>
+            <span>PG owner. Five buildings, 500 beds, 15 years on a register book.</span>
+          </div>
+          <div class="tag right">
+            <strong>Siva Nalavenkata</strong>
+            <span>Engineer. 25 years building inventory software for big companies, much of it in the US.</span>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="hero-text">
+    <div class="wrap">
+      <h2 class="promise" lang="te">మీరు ఎక్కడికి వెళ్ళినా, మీ Hostel మీతోనే ఉంటుంది.</h2>
+      <p class="promise-en">Wherever you go, you carry your hostel.</p>
+      <p class="lead">Fifteen years of register books met twenty-five years of inventory software. Both realised a hostel's beds are inventory too.</p>
+      <a href="#ch1" class="btn primary scroll-cue"><span>Why Kamer? Seven short chapters</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
+    </div>
+  </section>
+
+  <!-- CH 1: THE DAY -->
+  <section class="section chapter" id="ch1">
+    <div class="wrap">
+      <div class="ch-head">
+        <span class="ch-num">Chapter 1</span>
+        <div class="byline"><img src="/images/founders/srinivas.jpg" alt="" width="52" height="52" /><div><strong>Srinivas Reddy</strong><span class="muted">PG owner since 2009. Five buildings, about 500 beds.</span></div></div>
+      </div>
+      <h2>The day I decided</h2>
+      <div class="split" style="align-items:start">
+        <div class="prose-lg">
+          <p>Srinivas's day starts at 5:30, in the kitchen. Breakfast for a few hundred people has to be under way before anyone can ask him anything else. After that it's the phone: the watchman, a manager, a guest who is leaving and wants his advance back.</p>
+          <p>The advance is written in a register. The register is at that building. And it was written by whoever happened to be at the desk that day, which was often the guest in the room nearest the door. Some of those people left months ago. If Srinivas was away at a site, he found out what had actually happened when the month's money was counted.</p>
+          <p>He describes it on the podcast without drama. The food is the easy half. The hard half is knowing what's true: which beds are full, who has paid, what was promised to whom. For fifteen years that was simply the job.</p>
+          <p>Then one day it wasn't. He was at a construction site. A guest had booked a bed with him. The manager didn't know and gave the same bed to someone else. Both turned up. By the time Srinivas heard, the damage was done.</p>
+          <p>Standing on that site, he asked himself two questions. Why is there no solution for this? And why shouldn't we build one? That was the day he decided.</p>
+          <Clip src="/video/the-day-i-decided.mp4" poster="/video/the-day-i-decided-poster.jpg" title="Srinivas tells it" who="The double-booked bed, in his own words. 55 sec." length="0:55" />
+        </div>
+        <div class="register">
+          <div class="reg-head">Register book, page 41</div>
+          <div class="reg-line"><span>Advance recd. Ravi, Rm 402</span><span class="hand">5,000</span></div>
+          <div class="reg-line"><span>Same entry, one year later</span><span class="hand strike">3,000? 4,000?</span></div>
+          <div class="reg-line"><span>Rm 402, bed 3</span><span class="hand">Full</span></div>
+          <div class="reg-line"><span>Actual, for four months</span><span class="hand red">Empty</span></div>
+          <div class="reg-line"><span>Joining forms with ID copy</span><span class="hand">about half</span></div>
+          <div class="reg-line"><span>Police verification</span><span class="hand red">every month</span></div>
+          <div class="reg-foot">Every line above happened in a real Hyderabad hostel. Two of them in ours.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 2: HOW THEY MET -->
+  <section class="section dark chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 2</span>
+      <div class="split">
+        <div>
+          <h2>Two people who should never have met</h2>
+          <p class="lead" style="color:#d7dce4">Srinivas and Sunil had started building an app. Technology was eating their time. Siva was two desks away in the same co-working space, with 25 years of building systems that track lakhs of invoices for very large companies, 15 of them in the US.</p>
+          <p style="color:#d7dce4">"They knew the business. They knew exactly what they wanted. They just needed someone to build it." Friends asked if this was a step down. His answer: Apple's inventory and a PG owner's beds are the same problem. One of them had software.</p>
+        </div>
+        <Clip dark src="/video/founders-how-we-met.mp4" poster="/video/founders-how-we-met-poster.jpg" title="How we met" who="Siva, on the co-working space and why he said yes" length="0:57" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 3: THE FIGHT -->
+  <section class="section chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 3</span>
+      <div class="fight">
+        <div>
+          <h2>The month-long fight about bed B3</h2>
+          <p class="lead">A guest checks in to B3 and says, actually, I want room 4. To Srinivas that's a two-second decision. To Siva it was a month of pro-rated rent maths, half a month here, deposit adjustments there, a developer tied up while other features waited.</p>
+          <p>"I thought it wasn't necessary. I said so. They won." The change-bed feature took a month. Owners use it constantly. Most competing apps still don't have it.</p>
+          <p>That's the deal inside Kamer. The owners decide what the problem is. The engineer decides how. Nobody builds a feature from behind a desk.</p>
+          <div class="fight-card">
+            <div class="fc-row"><img src="/images/founders/srinivas.jpg" alt="Srinivas" width="36" height="36" /><span>"Just move him to room 4."</span></div>
+            <div class="fc-row"><img src="/images/founders/siva.jpg" alt="Siva" width="36" height="36" /><span>"Who pays for the 11 days he was in B3?"</span></div>
+            <div class="fc-row"><img src="/images/founders/srinivas.jpg" alt="Srinivas" width="36" height="36" /><span>"The app should know that."</span></div>
+            <div class="fc-row"><img src="/images/founders/siva.jpg" alt="Siva" width="36" height="36" /><span>"That's a month of work."</span></div>
+            <div class="fc-row"><img src="/images/founders/srinivas.jpg" alt="Srinivas" width="36" height="36" /><span>"Then it's a month."</span></div>
+            <div class="fc-result">Shipped. Owners' favourite feature.</div>
+          </div>
+        </div>
+        <Clip src="/video/the-fight-about-b3.mp4" poster="/video/the-fight-about-b3-poster.jpg" title="The fight, from both sides" who="Siva makes the case, then Srinivas. Neither backs down." length="1:34" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 4: THE SCREEN (first time the app appears) -->
+  <section class="section alt chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 4</span>
+      <div class="split">
+        <div class="phone-shot"><img src="/images/beds.png" alt="Kamer bed map: basement, ground floor and floor 1 with beds colour coded" width="449" height="902" loading="lazy" /></div>
+        <div>
+          <h2>So this is what they built. Green means empty.</h2>
+          <p class="lead">Basement to top floor, room by room. Filter by sharing, AC or non-AC. A bed is green, grey, orange or blue: empty, occupied, notice period, or booked for next month.</p>
+          <p>When a guest calls asking for a three-sharing AC bed, you answer from the bus. When a manager says a floor is full, you check. When you're deciding whether to take a daily booking, the answer is already on the screen.</p>
+          <ul class="check-list">
+            <li>Advance and rent recorded against the guest, forever</li>
+            <li>Daily bookings, advance bookings with token, "common" bookings without a bed yet</li>
+            <li>Change a guest's bed and the pro-rated rent works itself out</li>
+            <li>Aadhaar KYC through DigiLocker, ready before the police come</li>
+            <li>Partners see everything. Managers see what you unlock.</li>
+          </ul>
+          <a href="/features" class="btn ghost">Every feature, explained</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 5: YOUR DATA -->
+  <section class="section chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 5</span>
+      <div class="split">
+        <Clip src="/video/we-dont-know-your-occupancy.mp4" poster="/video/we-dont-know-your-occupancy-poster.jpg" title="Why Kamer can't read your data" who="Siva, on encryption in plain words. 1 min." length="1:00" />
+        <div>
+          <h2>Your guests' data is locked. Even from us.</h2>
+          <p class="lead">Owners call Siva and ask, "Sir, what's my occupancy this month?" He has to say he doesn't know. Guest data is encrypted with a key only the owner holds. He built it that way on purpose.</p>
+          <p>Nothing lives on the phone. Lose it, buy a new one, log in with your OTP, everything is back. Aadhaar goes through DigiLocker. A manager sees only the buttons you unlock. And if an owner who uses Paytm every day can't use Kamer alone, "that is our problem, not theirs."</p>
+          <a href="/security" class="btn ghost">How your data is handled</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 6: THREE BEDS -->
+  <section class="section dark chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 6</span>
+      <div class="split">
+        <div>
+          <h2>Three beds. Four months. Zero rent.</h2>
+          <p class="lead" style="color:#d7dce4">A group of hostels in Hyderabad, several partners, several buildings, all run through managers. One building had been reported full for months.</p>
+          <p style="color:#d7dce4">On onboarding day they entered every guest against a bed. Three beds in that building came up green. They had been empty for four months. The register said otherwise, and nobody had reason to doubt it.</p>
+          <div class="math-card">
+            <div class="math-title">Four beds. That's the whole pitch.</div>
+            <div class="math-row"><span>Most hostels break even at</span><strong>70 to 80% full</strong></div>
+            <div class="math-row"><span>Every bed above that is</span><strong>profit</strong></div>
+            <div class="math-row"><span>Kamer for a year costs about</span><strong>4 beds, one month</strong></div>
+          </div>
+        </div>
+        <div>
+          <Clip dark src="/video/three-beds-four-months.mp4" poster="/video/three-beds-four-months-poster.jpg" title="What one group found" who="Srinivas, on the onboarding that paid for itself the same day" length="0:43" />
+          <a href="/stories" class="btn ghost" style="margin-top:20px">More owner stories</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CH 7: CARRY YOUR HOSTEL -> the ask -->
+  <section class="section chapter">
+    <div class="wrap">
+      <span class="ch-num">Chapter 7</span>
+      <div class="split">
+        <div>
+          <h2>"Not an app. Your building. Wherever you go."</h2>
+          <p class="lead">Ask Srinivas why an owner should use it and he doesn't talk about features. He talks about sitting at a table anywhere in the world and seeing how many beds are full at home.</p>
+          <p>Time, transparency, and the beds you didn't know were empty. That's it. That's the pitch.</p>
+        </div>
+        <Clip src="/video/you-carry-your-hostel.mp4" poster="/video/you-carry-your-hostel-poster.jpg" title="Why an owner should use it" who="Srinivas, in his words" length="0:44" />
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ASK: apps, price, download -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="narrow">
+        <span class="eyebrow">If that sounded like your hostel</span>
+        <h2>Two apps. One price. No onboarding call.</h2>
+      </div>
+      <div class="grid cols-2" style="margin-top: 32px;">
+        <div class="card">
+          <h3>Kamer Owner</h3>
+          <p>Every building you own, in one app. Add partners with equal rights and full reports. Add managers with only the buttons they need: collect rent, add a guest, mark a vacate. The rest stays locked.</p>
+        </div>
+        <div class="card">
+          <h3>Kamer Stay</h3>
+          <p>Guests see their bills, pay rent, do their own KYC with your hostel code, and raise complaints in the app instead of at your door. Rent receipts are there when they file IT returns. Free for guests.</p>
+        </div>
+      </div>
+      <div class="price-band">
+        <div>
+          <h2 style="font-size:clamp(1.5rem,3vw,2rem)">Rs 9,999 a year. Up to 150 beds.</h2>
+          <p class="lead" style="margin:0">Unlimited buildings, partners and managers. Both apps. WhatsApp support from people who run hostels. Bigger than 150 beds? Call us.</p>
+        </div>
+        <div class="price-cta">
+          <a href="/pricing" class="btn ghost">See pricing</a>
+          <a href="/contact#demo" class="btn ghost">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap final">
+      <div class="final-faces">
+        <img src="/images/founders/srinivas.jpg" alt="Srinivas" width="72" height="72" />
+        <img src="/images/founders/siva.jpg" alt="Siva" width="72" height="72" />
+      </div>
+      <h2>Put the register in the drawer.</h2>
+      <p class="lead">Download the app, add your building, mark your beds. The first empty one shows up green in minutes. Old data in a book? We'll come and move it, free.</p>
+      <StoreButtons align="center" />
+      <p class="muted" style="margin-top: 20px;">WhatsApp <a href="https://wa.me/919100091343" style="color: var(--orange-dark); font-weight: 700;">+91 91000 91343</a>. One of these two usually answers.</p>
+    </div>
+  </section>
+
+  {videos.length > 0 && (
+    <section class="section alt">
+      <div class="wrap">
+        <span class="eyebrow">Watch</span>
+        <h2>The full episode</h2>
+        <div class:list={['grid', videos.length === 1 ? 'single' : videos.length === 2 ? 'cols-2' : 'cols-3']} style="margin-top: 28px;">
+          {videos.map((v) => <VideoEmbed video={v} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .hero { padding: clamp(20px, 3vw, 36px) 0 0; background: radial-gradient(1200px 500px at 80% -10%, var(--orange-soft), transparent 60%); }
+  .hero-photo { margin: 0; position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); background: #2a1b22; }
+  .hero-photo img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 22%; }
+  .hero-photo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(to top, rgba(20,14,18,.62), rgba(20,14,18,0)); pointer-events: none; }
+  .tags { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding: clamp(14px, 2.5vw, 28px); z-index: 1; }
+  .tag { display: flex; flex-direction: column; gap: 3px; max-width: 34ch; color: #fff; border-left: 3px solid var(--orange); padding-left: 12px; text-shadow: 0 1px 12px rgba(0,0,0,.5); }
+  .tag strong { font-size: clamp(1.05rem, 1.8vw, 1.35rem); font-weight: 800; letter-spacing: -0.01em; }
+  .tag span { font-size: clamp(.8rem, 1.1vw, .92rem); color: #e9e4e6; line-height: 1.35; }
+  .tag.right { text-align: right; border-left: 0; border-right: 3px solid var(--orange); padding-left: 0; padding-right: 12px; }
+  @media (max-width: 700px) {
+    .hero-photo img { aspect-ratio: 4 / 3; object-position: 52% 30%; }
+    .hero-photo::after { height: 58%; }
+    .tags { flex-direction: row; align-items: flex-end; gap: 10px; padding: 12px; }
+    .tag { max-width: 50%; }
+    .tag span { font-size: .72rem; }
+    .tag strong { font-size: .95rem; }
+  }
+
+  .ask { font-family: var(--telugu); font-weight: 700; font-size: clamp(1.55rem, 3.6vw, 2.6rem); line-height: 1.4; letter-spacing: 0; margin: 0 0 clamp(18px, 2.5vw, 28px); display: flex; flex-direction: column; gap: .1em; }
+  .ask .l1 { color: var(--ink); }
+  .ask .l2 { color: var(--orange-dark); }
+  .hero-text { padding: clamp(28px, 4vw, 48px) 0 clamp(16px, 3vw, 28px); }
+  .hero-text .promise { font-family: var(--telugu); font-size: clamp(1.75rem, 4.2vw, 2.9rem); line-height: 1.35; letter-spacing: 0; max-width: 24ch; margin-bottom: .2em; }
+  .promise-en { font-size: clamp(1.05rem, 1.6vw, 1.3rem); font-weight: 600; color: var(--muted); margin-bottom: 1em; }
+  .hero-text .lead { max-width: 60ch; margin-bottom: 1.4em; }
+  .scroll-cue { gap: 12px; font-size: 1.05rem; padding: 16px 26px; }
+  .scroll-cue svg { width: 22px; height: 22px; animation: nudge 1.6s ease-in-out infinite; }
+  #ch1 { padding-top: clamp(40px, 5vw, 64px); }
+  @keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+  .ch-num { display: inline-block; font-family: var(--hand); font-size: 1.5rem; font-weight: 700; color: var(--orange-dark); margin-bottom: 8px; }
+  .dark .ch-num { color: #ffb387; }
+  .ch-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 6px; }
+  .byline { display: flex; align-items: center; gap: 12px; }
+  .byline img { border-radius: 50%; object-fit: cover; }
+  .byline div { display: flex; flex-direction: column; line-height: 1.3; }
+  .byline .muted { font-size: .88rem; }
+  .prose-lg p { font-size: 1.08rem; color: var(--ink-2); }
+  .prose-lg :global(.clip) { margin-top: 24px; }
+
+  .register { background-color: #fffdf5; border: 1px solid #e6dcc3; border-radius: 6px; padding: 22px 26px; box-shadow: var(--shadow); position: sticky; top: 88px;
+    background-image: linear-gradient(#f0b3b3, #f0b3b3), repeating-linear-gradient(transparent, transparent 35px, #e9e0cb 35px, #e9e0cb 36px);
+    background-size: 1px 100%, 100% 100%; background-position: 44px 0, 0 58px; background-repeat: no-repeat, repeat; }
+  .reg-head { font-family: var(--hand); font-size: 1.35rem; color: #8a6d3b; margin-bottom: 8px; padding-left: 32px; }
+  .reg-line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; height: 36px; padding-left: 32px; font-size: .95rem; color: var(--ink-2); }
+  .hand { font-family: var(--hand); font-size: 1.45rem; font-weight: 700; color: #1e3a8a; white-space: nowrap; }
+  .hand.strike { text-decoration: line-through; text-decoration-color: #c0392b; color: #4b5563; }
+  .hand.red { color: #c0392b; }
+  .reg-foot { margin-top: 14px; padding-left: 32px; font-size: .85rem; color: var(--muted); }
+
+  .fight { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .fight > :global(.clip) { position: sticky; top: 92px; }
+  .chapter .split { align-items: start; }
+  .chapter .split > :global(.clip) { position: sticky; top: 92px; }
+  .fight-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 20px 24px; box-shadow: var(--shadow); margin-top: 8px; }
+  .fc-row { display: grid; grid-template-columns: 36px 1fr; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: .98rem; }
+  .fc-row img { border-radius: 50%; object-fit: cover; }
+  .fc-result { margin-top: 12px; font-weight: 800; color: var(--green); }
+
+  .math-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-lg); padding: 24px; margin-top: 8px; }
+  .math-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 8px; }
+  .math-row { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.12); color: #d7dce4; }
+  .math-row strong { color: #ffb387; text-align: right; }
+
+  .price-band { display: flex; justify-content: space-between; align-items: center; gap: 32px; background: var(--surface); border: 2px solid var(--orange); border-radius: var(--radius-lg); padding: clamp(24px, 3vw, 36px); margin-top: 20px; }
+  .price-cta { display: flex; flex-direction: column; gap: 12px; flex: none; }
+
+  .final { text-align: center; max-width: 720px; margin-inline: auto; }
+  .final .lead { margin-inline: auto; }
+  .final-faces { display: flex; justify-content: center; margin-bottom: 18px; }
+  .final-faces img { border-radius: 50%; border: 3px solid var(--bg); object-fit: cover; }
+  .final-faces img + img { margin-left: -14px; }
+  .grid.single { grid-template-columns: minmax(0, 760px); justify-content: center; }
+
+  @media (max-width: 860px) {
+    .chapter .split > :global(.clip) { order: 2; }
+    .register { position: static; }
+    .fight > :global(.clip) { position: static; }
+    .chapter .split > :global(.clip) { position: static; }
+    .price-band { flex-direction: column; align-items: flex-start; }
+    .price-cta { flex-direction: row; flex-wrap: wrap; }
+    .fight { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import StoreButtons from '../components/StoreButtons.astro';
+---
+<Base title="Contact" description="Talk to the Kamer team. Call or WhatsApp +91 91000 91343, email info@kamerapp.com, or request a demo for your hostel.">
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Talk to a person, not a ticket</h1>
+      <p class="lead">The founders still answer support. WhatsApp is fastest.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="wrap split" style="align-items:start">
+      <div class="grid" style="gap:16px">
+        <a class="card contact-card" href="https://wa.me/919100091343" target="_blank" rel="noopener">
+          <h3>WhatsApp</h3><p class="big">+91 91000 91343</p><p class="muted">Working hours. After hours, leave a message and we call back the next day.</p>
+        </a>
+        <a class="card contact-card" href="tel:+919100091343">
+          <h3>Call</h3><p class="big">+91 91000 91343</p>
+        </a>
+        <a class="card contact-card" href="mailto:info@kamerapp.com">
+          <h3>Email</h3><p class="big">info@kamerapp.com</p>
+        </a>
+        <div class="card contact-card">
+          <h3>Office</h3><p class="big">T-Hub, Hyderabad</p><p class="muted">L4Links Solutions Private Limited, Telangana, India.</p>
+        </div>
+      </div>
+
+      <div class="card" id="demo">
+        <h2 style="font-size:1.5rem">Request a demo</h2>
+        <p class="muted">Tell us about your hostel. We reply on WhatsApp.</p>
+        <form id="demo-form">
+          <label>Your name<input name="name" required autocomplete="name" /></label>
+          <label>Phone (WhatsApp)<input name="phone" type="tel" required autocomplete="tel" inputmode="tel" /></label>
+          <label>Hostel name<input name="hostel" /></label>
+          <label>Number of beds<input name="beds" type="number" min="1" inputmode="numeric" /></label>
+          <label>Anything else?<textarea name="msg" rows="3"></textarea></label>
+          <button type="submit" class="btn primary">Send on WhatsApp</button>
+          <p class="muted" style="font-size:.85rem; margin: 12px 0 0;">Opens WhatsApp with your details filled in. Nothing is stored on this website.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt center">
+    <div class="wrap narrow center">
+      <h2>Or just download it</h2>
+      <p class="lead">Add your building and beds yourself. Most owners are running the same day.</p>
+      <StoreButtons align="center" />
+    </div>
+  </section>
+</Base>
+<script>
+  const form = document.getElementById('demo-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const lines = [
+      'Hi Kamer, I would like a demo.',
+      `Name: ${d.get('name')}`,
+      `Phone: ${d.get('phone')}`,
+      d.get('hostel') ? `Hostel: ${d.get('hostel')}` : '',
+      d.get('beds') ? `Beds: ${d.get('beds')}` : '',
+      d.get('msg') ? `Note: ${d.get('msg')}` : '',
+    ].filter(Boolean);
+    window.open(`https://wa.me/919100091343?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
+  });
+</script>
+<style>
+  .contact-card { padding: 22px 26px; }
+  .contact-card:hover { border-color: var(--orange); }
+  .contact-card h3 { font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 6px; }
+  .big { font-weight: 800; font-size: 1.25rem; margin: 0 0 4px; }
+  form { display: grid; gap: 14px; margin-top: 18px; }
+  label { display: grid; gap: 6px; font-weight: 600; font-size: .92rem; }
+  input, textarea { font: inherit; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
+  input:focus, textarea:focus { outline: 2px solid var(--orange); border-color: transparent; }
+</style>
