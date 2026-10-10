@@ -11,11 +11,14 @@
 //   EMAIL_API_KEY_ZEPTO     ZeptoMail send key (same one kamer_backend uses)
 //   LEADS_NOTIFY_EMAIL      where every lead is emailed (default info@kamerapp.com)
 // Without the INTERAKT_* vars the lead is still saved and whatsapp_status stays "pending".
+import { randomInt } from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
 
-// Offer code shown in the WhatsApp flyer, per QR/ad source. Unknown sources get DEFAULT_CODE.
-const OFFER_CODES = { 'itcha-2026-oct-12': 'ITCHA20' };
-const DEFAULT_CODE = 'KAMER20';
+// Every lead gets their own offer code, e.g. ITCHA-K7M2QX (prefix from the event, no lookalike characters).
+const CODE_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
+const codePrefix = (src) => (src.toLowerCase().startsWith('itcha') ? 'ITCHA' : 'KAMER');
+const randomCode = (src) =>
+  `${codePrefix(src)}-${Array.from({ length: 6 }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join('')}`;
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
 const ZEPTO_URL = 'https://api.zeptomail.in/v1.1/email';
@@ -79,6 +82,7 @@ async function emailLead(lead) {
     ['Phone', `<a href="tel:${esc(lead.phone)}">${esc(lead.phone)}</a> (<a href="https://wa.me/${esc(lead.phone.slice(1))}">WhatsApp</a>)`],
     ['Hostel', esc(lead.hostel) || '-'],
     ['Source', esc(lead.src)],
+    ['Offer code', esc(lead.code) || '-'],
     ['UTM', esc(JSON.stringify(lead.utm)) || '-'],
     ['WhatsApp offer', esc(lead.whatsapp)],
     ['Saved in leads DB', lead.saved ? 'yes' : '<strong style="color:#b3261e">NO (database error, follow up from this email)</strong>'],
@@ -136,7 +140,7 @@ export default async function handler(req, res) {
   for (const k of UTM_KEYS) if (b.utm?.[k]) utm[k] = clean(b.utm[k], 100);
 
   const phone = `+91${phone10}`;
-  const lead = { name, phone, hostel, src, utm, saved: false, whatsapp: 'not attempted' };
+  const lead = { name, phone, hostel, src, utm, code: null, saved: false, whatsapp: 'not attempted' };
 
   try {
     const sql = neon(process.env.DATABASE_URL);
@@ -147,9 +151,22 @@ export default async function handler(req, res) {
       WHERE phone = ${phone} AND whatsapp_status = 'sent' AND created_at > now() - interval '24 hours'
       LIMIT 1`;
 
+    // Same number + same event keeps its original code; otherwise mint a fresh, unused one.
+    const [prev] = await sql`
+      SELECT offer_code FROM leads
+      WHERE phone = ${phone} AND src = ${src} AND offer_code IS NOT NULL
+      ORDER BY created_at LIMIT 1`;
+    let code = prev?.offer_code;
+    while (!code) {
+      const candidate = randomCode(src);
+      const taken = await sql`SELECT 1 FROM leads WHERE offer_code = ${candidate} LIMIT 1`;
+      if (!taken.length) code = candidate;
+    }
+    lead.code = code;
+
     const [row] = await sql`
-      INSERT INTO leads (phone, name, hostel_name, src, utm, consent_whatsapp, whatsapp_status)
-      VALUES (${phone}, ${name}, ${hostel}, ${src}, ${JSON.stringify(utm)}::jsonb, ${consent},
+      INSERT INTO leads (phone, name, hostel_name, src, utm, offer_code, consent_whatsapp, whatsapp_status)
+      VALUES (${phone}, ${name}, ${hostel}, ${src}, ${JSON.stringify(utm)}::jsonb, ${code}, ${consent},
               ${recent.length ? 'skipped' : 'pending'})
       RETURNING id`;
     lead.saved = true;
@@ -157,7 +174,6 @@ export default async function handler(req, res) {
 
     const canSend = !recent.length && process.env.INTERAKT_API_KEY && process.env.INTERAKT_TEMPLATE_NAME;
     if (canSend) {
-      const code = OFFER_CODES[src] || DEFAULT_CODE;
       const sent = await sendWhatsApp({ phone10, name, code });
       if (sent.ok) {
         lead.whatsapp = 'sent';
