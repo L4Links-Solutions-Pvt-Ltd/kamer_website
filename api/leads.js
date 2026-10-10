@@ -200,5 +200,5 @@ export default async function handler(req, res) {
 
   // The lead is safe if it reached the DB or the inbox; only fail the visitor if both failed.
   if (!lead.saved && !mail.ok) return res.status(500).json({ ok: false, error: 'server_error' });
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, code: lead.code });
 }

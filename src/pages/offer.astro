@@ -52,9 +52,18 @@ import StoreButtons from '../components/StoreButtons.astro';
 
         <div id="thanks" hidden>
           <h2 style="font-size:1.5rem">Thank you! 🙏</h2>
-          <p class="te">మీ Offer Code మరియు App Download link WhatsApp కి పంపుతున్నాము.</p>
+          <div id="code-box" hidden>
+            <p class="te" style="margin-bottom:6px">మీ Offer Code</p>
+            <div class="code-row">
+              <strong id="offer-code" class="code"></strong>
+              <button type="button" class="btn ghost small" id="copy-code">Copy</button>
+            </div>
+            <p class="muted" style="font-size:.9rem">Take a screenshot or note this code. Quote it when you sign up.</p>
+          </div>
+          <p class="te">ఈ Code మరియు App Download link మీ WhatsApp కి కూడా పంపుతున్నాము.</p>
           <p class="muted">Don't want to wait? Download the app now and start your 2-month free trial.</p>
           <StoreButtons />
+          <p><a class="brochure" href="/kamer-brochure.pdf" target="_blank" rel="noopener">View the Kamer brochure (PDF)</a></p>
         </div>
       </div>
     </div>
@@ -72,6 +81,16 @@ import StoreButtons from '../components/StoreButtons.astro';
     invalid_phone: 'Please enter a valid 10-digit mobile number.',
     consent_required: 'Please tick the WhatsApp consent box.',
   };
+
+  document.getElementById('copy-code')?.addEventListener('click', async (e) => {
+    const code = document.getElementById('offer-code')!.textContent || '';
+    try {
+      await navigator.clipboard.writeText(code);
+      (e.target as HTMLButtonElement).textContent = 'Copied';
+    } catch {
+      (e.target as HTMLButtonElement).textContent = 'Press and hold the code to copy';
+    }
+  });
 
   function showError(msg: string) {
     errBox.textContent = msg;
@@ -110,6 +129,10 @@ import StoreButtons from '../components/StoreButtons.astro';
       if (!r.ok || !j.ok) throw new Error(j.error || 'server_error');
       document.getElementById('form-wrap')!.hidden = true;
       document.getElementById('thanks')!.hidden = false;
+      if (j.code) {
+        document.getElementById('offer-code')!.textContent = j.code;
+        document.getElementById('code-box')!.hidden = false;
+      }
     } catch (err) {
       showError(MESSAGES[(err as Error).message] || 'Something went wrong. Please try again, or WhatsApp us on +91 91000 91343.');
       btn.disabled = false;
@@ -134,6 +157,9 @@ import StoreButtons from '../components/StoreButtons.astro';
   .cc { display: grid; place-items: center; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface-2); font-weight: 700; }
   .consent { display: flex; gap: 10px; align-items: flex-start; font-weight: 500; }
   .consent input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--orange); flex: none; }
+  .code-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 4px 0 8px; }
+  .code { font-size: 1.8rem; letter-spacing: .06em; color: var(--orange-dark); background: var(--orange-soft); padding: 8px 16px; border-radius: 10px; }
+  .brochure { display: inline-block; margin-top: 16px; color: var(--orange-dark); font-weight: 600; text-decoration: underline; }
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   .error { color: #b3261e; font-weight: 600; margin: 0; }
   .btn:disabled { opacity: .6; cursor: default; transform: none; }
