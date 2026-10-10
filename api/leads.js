@@ -14,7 +14,7 @@
 import { neon } from '@neondatabase/serverless';
 
 // Offer code shown in the WhatsApp flyer, per QR/ad source. Unknown sources get DEFAULT_CODE.
-const OFFER_CODES = { 'itcha-oct26': 'ITCHA20' };
+const OFFER_CODES = { 'itcha-2026-oct-12': 'ITCHA20' };
 const DEFAULT_CODE = 'KAMER20';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
