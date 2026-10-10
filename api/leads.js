@@ -4,15 +4,21 @@
 //
 // Env vars (Vercel project settings; never committed):
 //   DATABASE_URL            pooled connection string, role kamer_leads_app
-//   INTERAKT_API_KEY        Interakt API key (Basic auth value)
-//   INTERAKT_TEMPLATE_NAME  approved template, e.g. kamer_offer_welcome_v1
-//   INTERAKT_TEMPLATE_LANG  template language code (default "te")
-//   INTERAKT_FLYER_URL      public https URL of the flyer image (template header)
+//   INTERAKT_API_KEY        Interakt API key (Basic auth value) - the only required Interakt var
+//   INTERAKT_TEMPLATE_NAME  optional override of DEFAULT_TEMPLATE
+//   INTERAKT_TEMPLATE_LANG  optional override of DEFAULT_LANG
+//   INTERAKT_FLYER_URL      optional fallback flyer for sources not listed in FLYERS (else DEFAULT_FLYER)
 //   EMAIL_API_KEY_ZEPTO     ZeptoMail send key (same one kamer_backend uses)
 //   LEADS_NOTIFY_EMAIL      where every lead is emailed (default info@kamerapp.com)
 // Without the INTERAKT_* vars the lead is still saved and whatsapp_status stays "pending".
 import { randomInt } from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
+
+// Approved Interakt template and the event flyer used as its image header (public URLs, not secrets).
+const DEFAULT_TEMPLATE = 'kamer_offer_name_image_telugu_v1';
+const DEFAULT_LANG = 'te';
+const DEFAULT_FLYER = 'https://www.kamerapp.com/offer-flyer-itcha-2026-10-12.png'; // generic, no event text
+const FLYERS = { 'itcha-2026-oct-12': DEFAULT_FLYER }; // add event-specific flyers here, keyed by src
 
 // Every lead gets their own offer code, e.g. ITCHA-K7M2QX (prefix from the event, no lookalike characters).
 const CODE_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
@@ -34,14 +40,15 @@ function tenDigitPhone(raw) {
   return /^[6-9]\d{9}$/.test(d) ? d : null;
 }
 
-async function sendWhatsApp({ phone10, name, code }) {
-  const { INTERAKT_API_KEY, INTERAKT_TEMPLATE_NAME, INTERAKT_FLYER_URL } = process.env;
+async function sendWhatsApp({ phone10, name, code, src }) {
+  const { INTERAKT_API_KEY } = process.env;
+  const flyer = FLYERS[src] || process.env.INTERAKT_FLYER_URL || DEFAULT_FLYER;
   const template = {
-    name: INTERAKT_TEMPLATE_NAME,
-    languageCode: process.env.INTERAKT_TEMPLATE_LANG || 'te',
+    name: process.env.INTERAKT_TEMPLATE_NAME || DEFAULT_TEMPLATE,
+    languageCode: process.env.INTERAKT_TEMPLATE_LANG || DEFAULT_LANG,
+    headerValues: [flyer],
     bodyValues: [name, code],
   };
-  if (INTERAKT_FLYER_URL) template.headerValues = [INTERAKT_FLYER_URL];
 
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 8000);
@@ -172,9 +179,9 @@ export default async function handler(req, res) {
     lead.saved = true;
     lead.whatsapp = recent.length ? 'skipped (already sent in last 24h)' : 'pending (not configured yet)';
 
-    const canSend = !recent.length && process.env.INTERAKT_API_KEY && process.env.INTERAKT_TEMPLATE_NAME;
+    const canSend = !recent.length && process.env.INTERAKT_API_KEY;
     if (canSend) {
-      const sent = await sendWhatsApp({ phone10, name, code });
+      const sent = await sendWhatsApp({ phone10, name, code, src });
       if (sent.ok) {
         lead.whatsapp = 'sent';
         await sql`UPDATE leads SET whatsapp_status = 'sent', whatsapp_message_id = ${sent.id}, updated_at = now() WHERE id = ${row.id}`;
