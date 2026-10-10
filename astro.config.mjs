@@ -6,5 +6,5 @@ export default defineConfig({
   site: 'https://kamerapp.com',
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [sitemap()],
+  integrations: [sitemap({ filter: (page) => !page.endsWith('/offer') })],
 });

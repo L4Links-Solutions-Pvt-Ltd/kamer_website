@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
+    "@neondatabase/serverless": "^1.2.0",
     "astro": "^7.3.3"
   },
   "allowScripts": {

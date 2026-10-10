@@ -8,8 +8,9 @@ interface Props {
   description: string;
   ogImage?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
-const { title, description, ogImage = '/images/app-screenshot.png', jsonLd } = Astro.props;
+const { title, description, ogImage = '/images/app-screenshot.png', jsonLd, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site);
 const fullTitle = title.includes('Kamer') ? title : `${title} | Kamer`;
 ---
@@ -20,6 +21,7 @@ const fullTitle = title.includes('Kamer') ? title : `${title} | Kamer`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png" />
