@@ -6,21 +6,22 @@ import StoreButtons from '../components/StoreButtons.astro';
   <section class="section tight">
     <div class="wrap split" style="align-items:start">
       <div>
-        <span class="eyebrow">Special Offer</span>
-        <h1 class="te">Kamer Annual Plan పై <span class="hl">20% Discount</span></h1>
+        <span class="eyebrow" id="offer-eyebrow">Special Offer</span>
+        <h1 class="te">Kamer Annual Plan పై <span class="hl" id="offer-hl">20% Discount</span></h1>
         <p class="lead te">మీ Hostel ను ఒకే App లో నడపండి. Beds, Rent, Reminders, Reports అన్నీ.</p>
 
         <div class="price">
           <span class="old">₹9,999</span>
-          <span class="new">₹7,999</span>
+          <span class="new" id="offer-price">₹7,999</span>
           <span class="per">per year</span>
         </div>
 
         <ul class="check-list te">
           <li><strong>2 నెలలు Free Trial</strong></li>
-          <li>ఆ తర్వాత Annual Plan పై <strong>20% Discount</strong></li>
+          <li>ఆ తర్వాత Annual Plan పై <strong id="offer-discount">20% Discount</strong></li>
           <li>Offer Code మరియు App Download link మీ WhatsApp కి వస్తుంది</li>
         </ul>
+        <p class="until te" id="offer-until" hidden></p>
       </div>
 
       <div class="card" id="claim">
@@ -75,6 +76,28 @@ import StoreButtons from '../components/StoreButtons.astro';
   const errBox = document.getElementById('form-error') as HTMLElement;
   const params = new URLSearchParams(location.search);
   const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  // Campaign-specific offers, matched on the start of ?src=. Anything else keeps the default
+  // (20% off, ₹7,999) in the markup above. Keep in sync with the campaign flyer in api/leads.js.
+  const OFFERS: Record<string, { eyebrow: string; discount: string; price: string; until: string }> = {
+    deepavali: {
+      eyebrow: 'Deepavali Offer',
+      discount: '₹1,000 Discount',
+      price: '₹8,999',
+      until: 'దీపావళి Offer · 15 November వరకు మాత్రమే',
+    },
+  };
+  const src = (params.get('src') || '').toLowerCase();
+  const offer = Object.entries(OFFERS).find(([key]) => src.startsWith(key))?.[1];
+  if (offer) {
+    document.getElementById('offer-eyebrow')!.textContent = offer.eyebrow;
+    document.getElementById('offer-hl')!.textContent = offer.discount;
+    document.getElementById('offer-discount')!.textContent = offer.discount;
+    document.getElementById('offer-price')!.textContent = offer.price;
+    const until = document.getElementById('offer-until')!;
+    until.textContent = offer.until;
+    until.hidden = false;
+  }
 
   const MESSAGES: Record<string, string> = {
     name_required: 'Please enter your name.',
@@ -149,6 +172,8 @@ import StoreButtons from '../components/StoreButtons.astro';
   .price .old { font-size: 1.5rem; color: var(--muted); text-decoration: line-through; }
   .price .new { font-size: clamp(2.6rem, 6vw, 3.6rem); font-weight: 800; color: var(--orange-dark); letter-spacing: -0.03em; line-height: 1; }
   .price .per { color: var(--muted); font-weight: 600; }
+  .until[hidden] { display: none; }
+  .until { display: inline-block; margin-top: 4px; padding: 6px 14px; border-radius: 10px; background: var(--ink, #231a12); color: #fff; font-weight: 700; }
   form { display: grid; gap: 14px; margin-top: 18px; }
   label { display: grid; gap: 6px; font-weight: 600; font-size: .92rem; }
   input:not([type='checkbox']) { font: inherit; width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }

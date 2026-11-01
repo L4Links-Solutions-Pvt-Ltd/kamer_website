@@ -18,11 +18,16 @@ import { neon } from '@neondatabase/serverless';
 const DEFAULT_TEMPLATE = 'kamer_offer_name_image_telugu_v1';
 const DEFAULT_LANG = 'te';
 const DEFAULT_FLYER = 'https://www.kamerapp.com/offer-flyer-itcha-2026-10-12.png'; // generic, no event text
-const FLYERS = { 'itcha-2026-oct-12': DEFAULT_FLYER }; // add event-specific flyers here, keyed by src
+const FLYERS = {
+  'itcha-2026-oct-12': DEFAULT_FLYER,
+  'deepavali-2026': 'https://www.kamerapp.com/offer-flyer-deepavali-2026.png', // ₹8,999, valid till 15 Nov
+}; // add event-specific flyers here, keyed by src
 
 // Every lead gets their own offer code, e.g. ITCHA-K7M2QX (prefix from the event, no lookalike characters).
 const CODE_ALPHABET = '23456789ABCDEFGHJKMNPQRSTUVWXYZ';
-const codePrefix = (src) => (src.toLowerCase().startsWith('itcha') ? 'ITCHA' : 'KAMER');
+const CODE_PREFIXES = { itcha: 'ITCHA', deepavali: 'DEEPAVALI' }; // matched on the start of src
+const codePrefix = (src) =>
+  Object.entries(CODE_PREFIXES).find(([key]) => src.toLowerCase().startsWith(key))?.[1] || 'KAMER';
 const randomCode = (src) =>
   `${codePrefix(src)}-${Array.from({ length: 6 }, () => CODE_ALPHABET[randomInt(CODE_ALPHABET.length)]).join('')}`;
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
