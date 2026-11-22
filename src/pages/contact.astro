@@ -65,6 +65,7 @@ import StoreButtons from '../components/StoreButtons.astro';
       d.get('beds') ? `Beds: ${d.get('beds')}` : '',
       d.get('msg') ? `Note: ${d.get('msg')}` : '',
     ].filter(Boolean);
+    (window as any).fbq?.('track', 'Contact', { content_name: 'demo_form' });
     window.open(`https://wa.me/919100091343?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener');
   });
 </script>

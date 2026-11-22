@@ -150,6 +150,7 @@ import StoreButtons from '../components/StoreButtons.astro';
       });
       const j = await r.json().catch(() => ({}));
       if (!r.ok || !j.ok) throw new Error(j.error || 'server_error');
+      (window as any).fbq?.('track', 'Lead', { content_name: params.get('src') || 'direct' });
       document.getElementById('form-wrap')!.hidden = true;
       document.getElementById('thanks')!.hidden = false;
       if (j.code) {
