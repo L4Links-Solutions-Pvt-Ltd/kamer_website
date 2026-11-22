@@ -9,8 +9,9 @@ interface Props {
   ogImage?: string;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
+  minimalHeader?: boolean;
 }
-const { title, description, ogImage = '/images/app-screenshot.png', jsonLd, noindex = false } = Astro.props;
+const { title, description, ogImage = '/images/app-screenshot.png', jsonLd, noindex = false, minimalHeader = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', Astro.site);
 const fullTitle = title.includes('Kamer') ? title : `${title} | Kamer`;
 ---
@@ -65,7 +66,7 @@ const fullTitle = title.includes('Kamer') ? title : `${title} | Kamer`;
     <!-- End Meta Pixel Code -->
   </head>
   <body>
-    <Header />
+    <Header minimal={minimalHeader} />
     <main><slot /></main>
     <Footer />
   </body>

@@ -2,12 +2,14 @@
 import Base from '../layouts/Base.astro';
 import StoreButtons from '../components/StoreButtons.astro';
 ---
-<Base title="Kamer Annual Plan Offer" description="Claim your Kamer Annual Plan offer: 2 months free trial, then 20% off." noindex>
+<Base title="Kamer Annual Plan Offer" description="Claim your Kamer Annual Plan offer: 2 months free trial, then 20% off." noindex minimalHeader>
   <section class="section tight">
     <div class="wrap split" style="align-items:start">
       <div>
         <span class="eyebrow" id="offer-eyebrow">Special Offer</span>
-        <h1 class="te">Kamer Annual Plan పై <span class="hl" id="offer-hl">20% Discount</span></h1>
+        <h1 class="te">Kamer App <span class="hl">2 నెలలు పూర్తిగా FREE</span></h1>
+        <p class="sub te">ఆ తర్వాత Annual Plan పై <strong class="hl" id="offer-hl">20% Discount</strong></p>
+        <a href="#claim" class="btn primary jump">Get my offer ↓</a>
         <p class="lead te">మీ Hostel ను ఒకే App లో నడపండి. Beds, Rent, Reminders, Reports అన్నీ.</p>
 
         <div class="price">
@@ -17,7 +19,7 @@ import StoreButtons from '../components/StoreButtons.astro';
         </div>
 
         <ul class="check-list te">
-          <li><strong>2 నెలలు Free Trial</strong></li>
+          <li><strong>2 నెలలు పూర్తిగా FREE</strong></li>
           <li>ఆ తర్వాత Annual Plan పై <strong id="offer-discount">20% Discount</strong></li>
           <li>Offer Code మరియు App Download link మీ WhatsApp కి వస్తుంది</li>
         </ul>
@@ -168,6 +170,9 @@ import StoreButtons from '../components/StoreButtons.astro';
   .split > * { min-width: 0; }
   .te { font-family: var(--telugu); }
   h1.te { font-size: clamp(1.9rem, 4.6vw, 3rem); line-height: 1.3; }
+  .sub { font-size: clamp(1.15rem, 2.6vw, 1.45rem); font-weight: 600; margin: -4px 0 14px; }
+  .jump { display: none; }
+  @media (max-width: 860px) { .jump { display: inline-flex; margin: 0 0 18px; } }
   .hl { color: var(--orange-dark); }
   .price { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin: 8px 0 22px; }
   .price .old { font-size: 1.5rem; color: var(--muted); text-decoration: line-through; }

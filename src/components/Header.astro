@@ -1,4 +1,6 @@
 ---
+// minimal: logo only, no nav/CTA (used on ad landing pages so visitors stay on the form)
+const { minimal = false } = Astro.props as { minimal?: boolean };
 const links = [
   { href: '/features', label: 'Features' },
   { href: '/pricing', label: 'Pricing' },
@@ -11,19 +13,26 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <header class="site-header">
   <div class="wrap bar">
-    <a href="/" class="brand" aria-label="Kamer home">
-      <img src="/images/logo.png" alt="" width="36" height="36" />
-      <span>Kamer</span>
-    </a>
-    <nav class="nav" id="nav" aria-label="Main">
+    {minimal ? (
+      <span class="brand">
+        <img src="/images/logo.png" alt="" width="36" height="36" />
+        <span>Kamer</span>
+      </span>
+    ) : (
+      <a href="/" class="brand" aria-label="Kamer home">
+        <img src="/images/logo.png" alt="" width="36" height="36" />
+        <span>Kamer</span>
+      </a>
+    )}
+    {!minimal && <nav class="nav" id="nav" aria-label="Main">
       {links.map((l) => (
         <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
       ))}
       <a href="/contact#demo" class="btn primary small nav-cta">Get the app</a>
-    </nav>
-    <button class="menu" id="menu" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
+    </nav>}
+    {!minimal && <button class="menu" id="menu" aria-expanded="false" aria-controls="nav" aria-label="Toggle menu">
       <span></span><span></span><span></span>
-    </button>
+    </button>}
   </div>
 </header>
 <script>
